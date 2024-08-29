@@ -60,8 +60,8 @@ def on_sigint(signum, frame):
 if __name__ == "__main__":
     signal.signal(signal.SIGINT, on_sigint)
     print(f"ws: {ws_url}")
-    # from codex import codex
-    def codex(code="", max_length=128):
-        return code
+    from codex import codex
+    # def codex(code="", max_length=128):
+    #     return code
     runners['code'] = codex
     connect_websocket()
