@@ -1,5 +1,6 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
+import gc
 
 device = "cuda"
 device="xpu"
@@ -23,4 +24,7 @@ def codex(code="", max_length=128):
     outputs = model.generate(**inputs, max_length=max_length)
 
     # Decode and print the output
-    return tokenizer.decode(outputs[0], skip_special_tokens=True)[len(code):]
+    s = tokenizer.decode(outputs[0], skip_special_tokens=True)[len(code):]
+    gc.collect()
+    torch.cuda.empty_cache()
+    return s
