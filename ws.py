@@ -1,7 +1,5 @@
 import websocket
 import json
-import signal
-import sys
 import os
 
 runners = {}
@@ -36,7 +34,7 @@ def on_close(ws, close_status_code, close_msg):
     print(f"Closed: {close_status_code} {close_msg}")
 
 def on_open(ws):
-    pass
+    print("on connect")
 
 def connect_websocket():
     ws = websocket.WebSocketApp(ws_url,
@@ -51,17 +49,10 @@ def connect_websocket():
         reconnect=1
     )
 
-def on_sigint(signum, frame):
-    global runners
-    runners = None
-    print("Received SIGINT, closing gracefully...")
-    sys.exit(0)
-
 if __name__ == "__main__":
-    signal.signal(signal.SIGINT, on_sigint)
     print(f"ws: {ws_url}")
-    from codex import codex
-    # def codex(code="", max_length=128):
-    #     return code
+    # from codex import codex
+    def codex(code="", max_length=128):
+        return "code"
     runners['code'] = codex
     connect_websocket()
