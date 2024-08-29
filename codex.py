@@ -4,9 +4,8 @@ import gc
 import time
 
 device = "cuda"
-device="xpu"
-if device == "xpu":
-    print(torch.xpu.is_available())
+if torch.xpu.is_available():
+    device="xpu"
 
 # Load the tokenizer
 tokenizer = AutoTokenizer.from_pretrained("deepseek-ai/deepseek-coder-6.7b-base", trust_remote_code=True)
@@ -26,7 +25,7 @@ def codex(code="", max_length=128):
 
     start_at = time.time()
     # Generate the output
-    outputs = model.generate(**inputs, max_length=max_length)
+    outputs = model.generate(**inputs, max_new_tokens=max_length)
     print("generate", time.time() - start_at)
 
     start_at = time.time()
