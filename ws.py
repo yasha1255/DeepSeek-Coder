@@ -2,11 +2,8 @@ import websocket
 import json
 import signal
 import sys
-from dotenv import load_dotenv
 import os
 
-load_dotenv()
- 
 runners = {}
 ws_url = os.getenv('WS_URL')
 if ws_url is None:
