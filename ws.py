@@ -52,7 +52,7 @@ def get_ws_url():
     parser = argparse.ArgumentParser(description='Process some arguments.')
     parser.add_argument('--ws', type=str, required=True, help='The websocket URL')
     args = parser.parse_args()
-    return args.ws_url
+    return args.ws
 
 if __name__ == "__main__":
     ws_url = get_ws_url()
