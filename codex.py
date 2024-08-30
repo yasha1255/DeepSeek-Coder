@@ -5,17 +5,21 @@ import time
 
 device = "cuda"
 if torch.xpu.is_available():
-    device="xpu"
+    device = "xpu"
+model_path = "deepseek-ai/deepseek-coder-6.7b-base"
+model_path = "deepseek-ai/DeepSeek-Coder-V2-Lite-Base"
 
 # Load the tokenizer
-tokenizer = AutoTokenizer.from_pretrained("deepseek-ai/deepseek-coder-6.7b-base", trust_remote_code=True)
+tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
 
 # Load the model, specifying the device_map and torch_dtype for XPU
+start_at = time.time()
 model = AutoModelForCausalLM.from_pretrained(
-    "deepseek-ai/deepseek-coder-6.7b-base",
+    model_path,
     trust_remote_code=True,
     torch_dtype=torch.bfloat16
 ).to(device)
+print("load", time.time() - start_at)
 
 def codex(code="", max_length=128):
     start_at = time.time()
